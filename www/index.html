@@ -5,15 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>A Machine Learning-Based System for Early Diabetes Identification for Bangladeshi Patients using External Symptoms</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; color: #333; }
-    .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    h1 { text-align: center; color: #007bff; }
+    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #000080; color: white; }
+    .container { max-width: 800px; margin: auto; background: #001122; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
+    h1 { text-align: center; color: #ffffff; }
     form { display: flex; flex-direction: column; }
-    label { margin-top: 10px; font-weight: bold; }
-    input, select { padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; }
-    button { margin-top: 20px; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    .full-width { width: 100%; }
+    label { font-weight: bold; color: white; margin-top: 10px; }
+    input, select { padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; background: white; color: black; width: 100%; box-sizing: border-box; }
+    button { margin-top: 20px; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; width: 100%; }
     button:hover { background-color: #0056b3; }
-    #result { margin-top: 20px; padding: 10px; border-radius: 4px; display: none; }
+    #result { margin-top: 20px; padding: 10px; border-radius: 4px; display: none; text-align: center; }
     .low-risk { background-color: #d4edda; color: #155724; }
     .moderate-risk { background-color: #fff3cd; color: #856404; }
     .high-risk { background-color: #f8d7da; color: #721c24; }
@@ -24,61 +25,108 @@
   <div class="container">
     <h1>Diabetes Risk Assessment</h1>
     <form id="diabetesForm">
-      <label for="gender">Gender:</label>
-      <select id="gender" required>
-        <option value="">Select</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
-
       <label for="age">Age:</label>
       <input type="number" id="age" required>
 
-      <label for="height">Height (cm):</label>
-      <input type="number" id="height" step="0.1" required>
-
-      <label for="weight">Weight (kg):</label>
-      <input type="number" id="weight" step="0.1" required>
-
-      <label for="waist">Waist Circumference (cm):</label>
-      <input type="number" id="waist" step="0.1" required>
-
-      <label for="activity">Physical Activity:</label>
-      <select id="activity" required>
+      <label for="gender">Gender:</label>
+      <select id="gender" required>
         <option value="">Select</option>
-        <option value="0">Less than 30 minutes of moderate activity 4 days/week</option>
-        <option value="1">30 minutes or more of moderate activity 4 days/week</option>
+        <option value="0">Female</option>
+        <option value="1">Male</option>
       </select>
 
-      <label for="vegetables">Daily Vegetable/Fruit Consumption:</label>
-      <select id="vegetables" required>
-        <option value="">Select</option>
-        <option value="0">Less than 5 servings</option>
-        <option value="1">5 or more servings</option>
-      </select>
-
-      <label for="medication">Taking Medication for Hypertension:</label>
-      <select id="medication" required>
+      <label for="polyuria">Polyuria (Frequent Urination):</label>
+      <select id="polyuria" required>
         <option value="">Select</option>
         <option value="0">No</option>
         <option value="1">Yes</option>
       </select>
 
-      <label for="glucose">History of High Blood Glucose:</label>
-      <select id="glucose" required>
+      <label for="polydipsia">Polydipsia (Excessive Thirst):</label>
+      <select id="polydipsia" required>
         <option value="">Select</option>
         <option value="0">No</option>
         <option value="1">Yes</option>
       </select>
 
-      <label for="family">Family History of Diabetes:</label>
-      <select id="family" required>
+      <label for="sudden_weight_loss">Sudden Weight Loss:</label>
+      <select id="sudden_weight_loss" required>
         <option value="">Select</option>
         <option value="0">No</option>
         <option value="1">Yes</option>
       </select>
 
-      <button type="submit">Calculate Risk</button>
+      <label for="weakness">Weakness:</label>
+      <select id="weakness" required>
+        <option value="">Select</option>
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+
+      <label for="polyphagia">Polyphagia (Excessive Hunger):</label>
+      <select id="polyphagia" required>
+        <option value="">Select</option>
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+
+      <label for="visual_blurring">Visual Blurring:</label>
+      <select id="visual_blurring" required>
+        <option value="">Select</option>
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+
+      <label for="itching">Itching:</label>
+      <select id="itching" required>
+        <option value="">Select</option>
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+
+      <label for="irritability">Irritability:</label>
+      <select id="irritability" required>
+        <option value="">Select</option>
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+
+      <label for="delayed_healing">Delayed Healing:</label>
+      <select id="delayed_healing" required>
+        <option value="">Select</option>
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+
+      <label for="partial_paresis">Partial Paresis:</label>
+      <select id="partial_paresis" required>
+        <option value="">Select</option>
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+
+      <label for="muscle_stiffness">Muscle Stiffness:</label>
+      <select id="muscle_stiffness" required>
+        <option value="">Select</option>
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+
+      <label for="alopecia">Alopecia (Hair Loss):</label>
+      <select id="alopecia" required>
+        <option value="">Select</option>
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+
+      <label for="obesity">Obesity:</label>
+      <select id="obesity" required>
+        <option value="">Select</option>
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+
+      <button type="submit" class="full-width">Calculate Risk</button>
     </form>
     <div id="result"></div>
   </div>
