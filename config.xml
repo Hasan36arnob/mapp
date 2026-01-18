@@ -2,8 +2,8 @@
 <widget id="com.example.mastersofflineapp" version="1.0.0"
     xmlns="http://www.w3.org/ns/widgets"
     xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>MastersOfflineApp</name>
-    <description>Offline HTML/JS app for Master's project</description>
+    <name>Diabetes Identification System</name>
+    <description>A Machine Learning-Based System for Early Diabetes Identification for Bangladeshi Patients using External Symptoms</description>
     <author email="your@email.com" href="#">Your Name</author>
     <content src="index.html" />
     <access origin="*" />
