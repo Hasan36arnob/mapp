@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A Machine Learning-Based System for Early Diabetes Identification for Bangladeshi Patients using External Symptoms</title>
+  <title>বাংলাদেশি রোগীদের জন্য বাহ্যিক উপসর্গের ভিত্তিতে ডায়াবেটিস ঝুঁকি নির্ণয়</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #000080; color: white; }
     .container { max-width: 800px; margin: auto; background: #001122; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
@@ -23,110 +23,110 @@
 </head>
 <body>
   <div class="container">
-    <h1>Diabetes Risk Assessment</h1>
+    <h1>ডায়াবেটিস ঝুঁকি নির্ণয়</h1>
     <form id="diabetesForm">
-      <label for="age">Age:</label>
+      <label for="age">বয়স (বছর):</label>
       <input type="number" id="age" required>
 
-      <label for="gender">Gender:</label>
+      <label for="gender">লিঙ্গ:</label>
       <select id="gender" required>
-        <option value="">Select</option>
-        <option value="0">Female</option>
-        <option value="1">Male</option>
+        <option value="">নির্বাচন করুন</option>
+        <option value="0">মহিলা</option>
+        <option value="1">পুরুষ</option>
       </select>
 
-      <label for="polyuria">Polyuria (Frequent Urination):</label>
+      <label for="polyuria">পলিউরিয়া (বারবার প্রস্রাব হওয়া):</label>
       <select id="polyuria" required>
-        <option value="">Select</option>
-        <option value="0">No</option>
-        <option value="1">Yes</option>
+        <option value="">নির্বাচন করুন</option>
+        <option value="0">না</option>
+        <option value="1">হ্যাঁ</option>
       </select>
 
-      <label for="polydipsia">Polydipsia (Excessive Thirst):</label>
+      <label for="polydipsia">পলিডিপসিয়া (অতিরিক্ত তৃষ্ণা):</label>
       <select id="polydipsia" required>
-        <option value="">Select</option>
-        <option value="0">No</option>
-        <option value="1">Yes</option>
+        <option value="">নির্বাচন করুন</option>
+        <option value="0">না</option>
+        <option value="1">হ্যাঁ</option>
       </select>
 
-      <label for="sudden_weight_loss">Sudden Weight Loss:</label>
+      <label for="sudden_weight_loss">হঠাৎ ওজন কমে যাওয়া:</label>
       <select id="sudden_weight_loss" required>
-        <option value="">Select</option>
-        <option value="0">No</option>
-        <option value="1">Yes</option>
+        <option value="">নির্বাচন করুন</option>
+        <option value="0">না</option>
+        <option value="1">হ্যাঁ</option>
       </select>
 
-      <label for="weakness">Weakness:</label>
+      <label for="weakness">দুর্বলতা:</label>
       <select id="weakness" required>
-        <option value="">Select</option>
-        <option value="0">No</option>
-        <option value="1">Yes</option>
+        <option value="">নির্বাচন করুন</option>
+        <option value="0">না</option>
+        <option value="1">হ্যাঁ</option>
       </select>
 
-      <label for="polyphagia">Polyphagia (Excessive Hunger):</label>
+      <label for="polyphagia">পলিফেজিয়া (অতিরিক্ত ক্ষুধা):</label>
       <select id="polyphagia" required>
-        <option value="">Select</option>
-        <option value="0">No</option>
-        <option value="1">Yes</option>
+        <option value="">নির্বাচন করুন</option>
+        <option value="0">না</option>
+        <option value="1">হ্যাঁ</option>
       </select>
 
-      <label for="visual_blurring">Visual Blurring:</label>
+      <label for="visual_blurring">দৃষ্টি ঝাপসা হওয়া:</label>
       <select id="visual_blurring" required>
-        <option value="">Select</option>
-        <option value="0">No</option>
-        <option value="1">Yes</option>
+        <option value="">নির্বাচন করুন</option>
+        <option value="0">না</option>
+        <option value="1">হ্যাঁ</option>
       </select>
 
-      <label for="itching">Itching:</label>
+      <label for="itching">চুলকানি:</label>
       <select id="itching" required>
-        <option value="">Select</option>
-        <option value="0">No</option>
-        <option value="1">Yes</option>
+        <option value="">নির্বাচন করুন</option>
+        <option value="0">না</option>
+        <option value="1">হ্যাঁ</option>
       </select>
 
-      <label for="irritability">Irritability:</label>
+      <label for="irritability">খিটখিটে মেজাজ:</label>
       <select id="irritability" required>
-        <option value="">Select</option>
-        <option value="0">No</option>
-        <option value="1">Yes</option>
+        <option value="">নির্বাচন করুন</option>
+        <option value="0">না</option>
+        <option value="1">হ্যাঁ</option>
       </select>
 
-      <label for="delayed_healing">Delayed Healing:</label>
+      <label for="delayed_healing">ক্ষত শুকাতে দেরি হওয়া:</label>
       <select id="delayed_healing" required>
-        <option value="">Select</option>
-        <option value="0">No</option>
-        <option value="1">Yes</option>
+        <option value="">নির্বাচন করুন</option>
+        <option value="0">না</option>
+        <option value="1">হ্যাঁ</option>
       </select>
 
-      <label for="partial_paresis">Partial Paresis:</label>
+      <label for="partial_paresis">আংশিক প্যারেসিস (হাত‑পা অবশ/দুর্বলতা):</label>
       <select id="partial_paresis" required>
-        <option value="">Select</option>
-        <option value="0">No</option>
-        <option value="1">Yes</option>
+        <option value="">নির্বাচন করুন</option>
+        <option value="0">না</option>
+        <option value="1">হ্যাঁ</option>
       </select>
 
-      <label for="muscle_stiffness">Muscle Stiffness:</label>
+      <label for="muscle_stiffness">মাংসপেশী শক্ত/আকড়ে ধরা (স্টিফনেস):</label>
       <select id="muscle_stiffness" required>
-        <option value="">Select</option>
-        <option value="0">No</option>
-        <option value="1">Yes</option>
+        <option value="">নির্বাচন করুন</option>
+        <option value="0">না</option>
+        <option value="1">হ্যাঁ</option>
       </select>
 
-      <label for="alopecia">Alopecia (Hair Loss):</label>
+      <label for="alopecia">অ্যালোপেশিয়া (চুল পড়া):</label>
       <select id="alopecia" required>
-        <option value="">Select</option>
-        <option value="0">No</option>
-        <option value="1">Yes</option>
+        <option value="">নির্বাচন করুন</option>
+        <option value="0">না</option>
+        <option value="1">হ্যাঁ</option>
       </select>
 
-      <label for="obesity">Obesity:</label>
+      <label for="obesity">স্থূলতা (Obesity):</label>
       <select id="obesity" required>
-        <option value="">Select</option>
-        <option value="0">No</option>
-        <option value="1">Yes</option>
+        <option value="">নির্বাচন করুন</option>
+        <option value="0">না</option>
+        <option value="1">হ্যাঁ</option>
       </select>
 
-      <button type="submit" class="full-width">Calculate Risk</button>
+      <button type="submit" class="full-width">ঝুঁকি নির্ণয় করুন</button>
     </form>
     <div id="result"></div>
   </div>

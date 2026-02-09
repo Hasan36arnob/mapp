@@ -169,9 +169,9 @@ document.getElementById('diabetesForm').addEventListener('submit', function(even
   }
 
   const symptomAdviceMap = {
-    polyuria: 'Hydration + glucose test',
-    weight_loss: 'Nutrition assessment',
-    fatigue: 'Physical activity review'
+    polyuria: 'পর্যাপ্ত পানি পান করুন এবং প্রয়োজনে রক্তে গ্লুকোজ পরীক্ষা করুন',
+    weight_loss: 'ডায়েটিশিয়ানের সাথে পরামর্শ করে পুষ্টি মূল্যায়ন করুন',
+    fatigue: 'ধীরে ধীরে নিয়মিত শারীরিক ব্যায়াম শুরু করুন এবং পর্যাপ্ত বিশ্রাম নিন'
   };
 
   const adviceItems = [];
@@ -208,18 +208,72 @@ document.getElementById('diabetesForm').addEventListener('submit', function(even
     adviceHtml = '<ul>' + adviceItems.join('') + '</ul>';
   }
 
+  const riskStageBangla = {
+    'Very Low Risk': 'খুব কম ঝুঁকি',
+    'Low Risk': 'কম ঝুঁকি',
+    'Moderate Risk': 'মাঝারি ঝুঁকি (প্রি‑ডায়াবেটিস জোন)',
+    'High Risk': 'উচ্চ ঝুঁকি',
+    'Critical Risk': 'জরুরি/অত্যন্ত উচ্চ ঝুঁকি'
+  };
+
+  const progressionBangla = {
+    'Accelerated progression': 'দ্রুতগতি সম্পন্ন অগ্রগতি (লেট‑স্টেজ উপসর্গ উপস্থিত)',
+    'Moderate progression': 'মাঝারি অগ্রগতি (মিড‑স্টেজ উপসর্গ বেশি)',
+    'Early-stage progression': 'প্রারম্ভিক অবস্থা (প্রধানত আর্লি‑স্টেজ উপসর্গ)'
+  };
+
+  const actionBangla = {
+    'Lifestyle monitoring': 'জীবনযাত্রা নিয়মিত পর্যবেক্ষণ, ওজন ও খাদ্য নিয়ন্ত্রণ, বছরে অন্তত একবার রক্তে গ্লুকোজ পরীক্ষা',
+    'Doctor consultation': 'শীঘ্রই চিকিৎসকের সাথে দেখা করুন এবং প্রয়োজনে পরীক্ষা‑নিরীক্ষা করান',
+    'Immediate lab tests': 'অতি দ্রুত ল্যাব টেস্ট (ফাস্টিং গ্লুকোজ, HbA1c ইত্যাদি) এবং চিকিৎসকের পরামর্শ নিন'
+  };
+
+  let managementHtml = '';
+  if (currentRiskStage === 'Very Low Risk' || currentRiskStage === 'Low Risk') {
+    managementHtml =
+      '<h3>ডায়াবেটিস ব্যবস্থাপনা (প্রতিরোধমূলক)</h3>' +
+      '<ul>' +
+      '<li>প্রতিদিন অন্তত ৩০ মিনিট হালকা থেকে মাঝারি ব্যায়াম করার চেষ্টা করুন।</li>' +
+      '<li>চিনি ও মিষ্টি পানীয় কমিয়ে সবজি ও আঁশযুক্ত খাবার বেশি খান।</li>' +
+      '<li>ধূমপান ও অতিরিক্ত তেল‑চর্বি এড়িয়ে চলুন।</li>' +
+      '<li>বছরে অন্তত একবার রক্তে গ্লুকোজ পরীক্ষা করুন।</li>' +
+      '</ul>';
+  } else if (currentRiskStage === 'Moderate Risk') {
+    managementHtml =
+      '<h3>ডায়াবেটিস ব্যবস্থাপনা (প্রি‑ডায়াবেটিস)</h3>' +
+      '<ul>' +
+      '<li>সাপ্তাহিক অন্তত ১৫০ মিনিট দ্রুত হাঁটা বা সমপর্যায়ের ব্যায়াম করুন।</li>' +
+      '<li>সাদা ভাত ও মিষ্টি কমিয়ে শাক‑সবজি, ডাল ও পূর্ণ শস্য (whole grain) বাড়ান।</li>' +
+      '<li>প্রতি ৩–৬ মাস পর পর রক্তে গ্লুকোজ পরীক্ষা করুন।</li>' +
+      '<li>ডাক্তারের পরামর্শ অনুযায়ী ওজন কমানো ও নিয়মিত ফলো‑আপ করুন।</li>' +
+      '</ul>';
+  } else if (currentRiskStage === 'High Risk' || currentRiskStage === 'Critical Risk') {
+    managementHtml =
+      '<h3>ডায়াবেটিস ব্যবস্থাপনা (উচ্চ ঝুঁকি)</h3>' +
+      '<ul>' +
+      '<li>যত তাড়াতাড়ি সম্ভব ডাক্তারের সাথে দেখা করুন এবং সব পরীক্ষার রিপোর্ট নিয়ে যান।</li>' +
+      '<li>চিনি, মিষ্টি খাবার ও সফট ড্রিঙ্ক একেবারে বন্ধ করার চেষ্টা করুন।</li>' +
+      '<li>পায়ের যত্ন নিন, প্রতিদিন পা পরীক্ষা করুন এবং কোনো ক্ষত হলে অবহেলা করবেন না।</li>' +
+      '<li>বুক ব্যথা, শ্বাসকষ্ট, তীব্র দুর্বলতা বা বিভ্রান্তি হলে অবিলম্বে নিকটস্থ হাসপাতালে যান।</li>' +
+      '</ul>';
+  }
+
   const resultDiv = document.getElementById('result');
+  const riskBn = riskStageBangla[currentRiskStage] || currentRiskStage;
+  const progressionBn = progressionBangla[progressionDescription] || progressionDescription;
+  const actionBn = action ? (actionBangla[action] || action) : '';
   resultDiv.innerHTML = ''
-    + '<h2>Risk Assessment Result</h2>'
-    + '<p><strong>Risk Stage:</strong> ' + currentRiskStage + '</p>'
+    + '<h2>ডায়াবেটিস ঝুঁকি ফলাফল</h2>'
+    + '<p><strong>Risk Stage / ঝুঁকি স্তর:</strong> ' + riskBn + ' (' + currentRiskStage + ')</p>'
     + '<p><strong>Estimated Probability Proxy p:</strong> ' + p.toFixed(2) + '</p>'
     + (currentRiskStage === 'Moderate Risk'
-        ? '<p><strong>Interpretation:</strong> Pre-diabetic zone.</p>'
+        ? '<p><strong>Interpretation / ব্যাখ্যা:</strong> Pre-diabetic zone (প্রি‑ডায়াবেটিস অবস্থা)।</p>'
         : '')
-    + '<p><strong>Progression:</strong> ' + progressionDescription + '</p>'
-    + (action ? '<p><strong>Recommended Action:</strong> ' + action + '</p>' : '')
+    + '<p><strong>Progression / রোগের অগ্রগতি:</strong> ' + progressionBn + '</p>'
+    + (action ? '<p><strong>Recommended Action / পরবর্তী পদক্ষেপ:</strong> ' + actionBn + '</p>' : '')
     + counterfactualHtml
-    + (adviceHtml ? '<p><strong>Symptom-specific Advice:</strong></p>' + adviceHtml : '');
+    + (adviceHtml ? '<p><strong>লক্ষণভিত্তিক পরামর্শ:</strong></p>' + adviceHtml : '')
+    + managementHtml;
   resultDiv.className = '';
   resultDiv.style.display = 'block';
 });
