@@ -38,17 +38,17 @@ document.getElementById('diabetesForm').addEventListener('submit', function(even
   const binarySymptoms = [
     polyuria,
     polydipsia,
-    sudden_weight_loss,
-    weakness,
-    polyphagia,
-    visual_blurring,
     itching,
+    sudden_weight_loss,
     irritability,
-    delayed_healing,
     partial_paresis,
+    visual_blurring,
+    delayed_healing,
+    obesity,
+    polyphagia,
     muscle_stiffness,
     alopecia,
-    obesity
+    weakness
   ];
 
   let presentCount = 0;
@@ -112,17 +112,17 @@ document.getElementById('diabetesForm').addEventListener('submit', function(even
   const symptomNamesForRisk = [
     'polyuria',
     'polydipsia',
-    'sudden_weight_loss',
-    'weakness',
-    'polyphagia',
-    'visual_blurring',
     'itching',
+    'sudden_weight_loss',
     'irritability',
-    'delayed_healing',
     'partial_paresis',
+    'visual_blurring',
+    'delayed_healing',
+    'obesity',
+    'polyphagia',
     'muscle_stiffness',
     'alopecia',
-    'obesity'
+    'weakness'
   ];
 
   const symptomValuesForRisk = {
@@ -187,13 +187,20 @@ document.getElementById('diabetesForm').addEventListener('submit', function(even
 
   let counterfactualHtml = '';
   if (counterfactualRemovalSymptom !== null && counterfactualNewStage !== null) {
-    counterfactualHtml = '<p><strong>Counterfactual:</strong> Removing "' +
-      counterfactualRemovalSymptom +
-      '" changes risk stage from "' +
-      currentRiskStage +
-      '" to "' +
-      counterfactualNewStage +
-      '".</p>';
+    counterfactualHtml =
+      '<h3>Counterfactual Risk Reduction</h3>' +
+      '<table border="1" cellpadding="4" cellspacing="0">' +
+      '<thead><tr>' +
+      '<th>Removed Symptom</th>' +
+      '<th>Old Risk Stage</th>' +
+      '<th>New Risk Stage</th>' +
+      '</tr></thead>' +
+      '<tbody><tr>' +
+      '<td>' + counterfactualRemovalSymptom + '</td>' +
+      '<td>' + currentRiskStage + '</td>' +
+      '<td>' + counterfactualNewStage + '</td>' +
+      '</tr></tbody>' +
+      '</table>';
   }
 
   let adviceHtml = '';
@@ -205,6 +212,10 @@ document.getElementById('diabetesForm').addEventListener('submit', function(even
   resultDiv.innerHTML = ''
     + '<h2>Risk Assessment Result</h2>'
     + '<p><strong>Risk Stage:</strong> ' + currentRiskStage + '</p>'
+    + '<p><strong>Estimated Probability Proxy p:</strong> ' + p.toFixed(2) + '</p>'
+    + (currentRiskStage === 'Moderate Risk'
+        ? '<p><strong>Interpretation:</strong> Pre-diabetic zone.</p>'
+        : '')
     + '<p><strong>Progression:</strong> ' + progressionDescription + '</p>'
     + (action ? '<p><strong>Recommended Action:</strong> ' + action + '</p>' : '')
     + counterfactualHtml
