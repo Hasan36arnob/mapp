@@ -262,9 +262,24 @@ document.getElementById('diabetesForm').addEventListener('submit', function(even
   const riskBn = riskStageBangla[currentRiskStage] || currentRiskStage;
   const progressionBn = progressionBangla[progressionDescription] || progressionDescription;
   const actionBn = action ? (actionBangla[action] || action) : '';
+  
+  // Determine risk class for visual indicator
+  let riskClass = '';
+  if (currentRiskStage === 'Very Low Risk') {
+    riskClass = 'risk-very-low';
+  } else if (currentRiskStage === 'Low Risk') {
+    riskClass = 'risk-low';
+  } else if (currentRiskStage === 'Moderate Risk') {
+    riskClass = 'risk-moderate';
+  } else if (currentRiskStage === 'High Risk') {
+    riskClass = 'risk-high';
+  } else if (currentRiskStage === 'Critical Risk') {
+    riskClass = 'risk-critical';
+  }
+  
   resultDiv.innerHTML = ''
     + '<h2>ডায়াবেটিস ঝুঁকি ফলাফল</h2>'
-    + '<p><strong>Risk Stage / ঝুঁকি স্তর:</strong> ' + riskBn + ' (' + currentRiskStage + ')</p>'
+    + '<p><strong>Risk Stage / ঝুঁকি স্তর:</strong> ' + riskBn + ' (' + currentRiskStage + ')<span class="risk-indicator ' + riskClass + '">' + currentRiskStage + '</span></p>'
     + '<p><strong>Estimated Probability Proxy p:</strong> ' + p.toFixed(2) + '</p>'
     + (currentRiskStage === 'Moderate Risk'
         ? '<p><strong>Interpretation / ব্যাখ্যা:</strong> Pre-diabetic zone (প্রি‑ডায়াবেটিস অবস্থা)।</p>'
@@ -274,6 +289,6 @@ document.getElementById('diabetesForm').addEventListener('submit', function(even
     + counterfactualHtml
     + (adviceHtml ? '<p><strong>লক্ষণভিত্তিক পরামর্শ:</strong></p>' + adviceHtml : '')
     + managementHtml;
-  resultDiv.className = '';
-  resultDiv.style.display = 'block';
+  resultDiv.className = 'result-card';
+  resultDiv.classList.remove('hidden');
 });

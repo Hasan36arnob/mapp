@@ -4,131 +4,169 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>বাংলাদেশি রোগীদের জন্য বাহ্যিক উপসর্গের ভিত্তিতে ডায়াবেটিস ঝুঁকি নির্ণয়</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #000080; color: white; }
-    .container { max-width: 800px; margin: auto; background: #001122; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
-    h1 { text-align: center; color: #ffffff; }
-    form { display: flex; flex-direction: column; }
-    .full-width { width: 100%; }
-    label { font-weight: bold; color: white; margin-top: 10px; }
-    input, select { padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; background: white; color: black; width: 100%; box-sizing: border-box; }
-    button { margin-top: 20px; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; width: 100%; }
-    button:hover { background-color: #0056b3; }
-    #result { margin-top: 20px; padding: 10px; border-radius: 4px; display: none; text-align: center; }
-    .low-risk { background-color: #d4edda; color: #155724; }
-    .moderate-risk { background-color: #fff3cd; color: #856404; }
-    .high-risk { background-color: #f8d7da; color: #721c24; }
-    .very-high-risk { background-color: #f5c6cb; color: #721c24; }
-  </style>
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-  <div class="container">
-    <h1>ডায়াবেটিস ঝুঁকি নির্ণয়</h1>
-    <form id="diabetesForm">
-      <label for="age">বয়স (বছর):</label>
-      <input type="number" id="age" required>
+  <div class="background-decoration"></div>
+  <div class="main-container">
+    <header class="app-header">
+      <div class="header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        </svg>
+      </div>
+      <h1>ডায়াবেটিস ঝুঁকি নির্ণয়</h1>
+      <p class="subtitle">বাহ্যিক উপসর্গের ভিত্তিতে ঝুঁকি মূল্যায়ন</p>
+    </header>
+    
+    <div class="form-card">
+      <form id="diabetesForm">
+        <div class="form-group">
+          <label for="age">বয়স (বছর)</label>
+          <input type="number" id="age" required placeholder="আপনার বয়স লিখুন">
+        </div>
 
-      <label for="gender">লিঙ্গ:</label>
-      <select id="gender" required>
-        <option value="">নির্বাচন করুন</option>
-        <option value="0">মহিলা</option>
-        <option value="1">পুরুষ</option>
-      </select>
+        <div class="form-group">
+          <label for="gender">লিঙ্গ</label>
+          <select id="gender" required>
+            <option value="">নির্বাচন করুন</option>
+            <option value="0">মহিলা</option>
+            <option value="1">পুরুষ</option>
+          </select>
+        </div>
 
-      <label for="polyuria">পলিউরিয়া (বারবার প্রস্রাব হওয়া):</label>
-      <select id="polyuria" required>
-        <option value="">নির্বাচন করুন</option>
-        <option value="0">না</option>
-        <option value="1">হ্যাঁ</option>
-      </select>
+        <div class="symptoms-section">
+          <h3>উপসর্গ নির্বাচন করুন</h3>
+          
+          <div class="form-group">
+            <label for="polyuria">পলিউরিয়া (বারবার প্রস্রাব হওয়া)</label>
+            <select id="polyuria" required>
+              <option value="">নির্বাচন করুন</option>
+              <option value="0">না</option>
+              <option value="1">হ্যাঁ</option>
+            </select>
+          </div>
 
-      <label for="polydipsia">পলিডিপসিয়া (অতিরিক্ত তৃষ্ণা):</label>
-      <select id="polydipsia" required>
-        <option value="">নির্বাচন করুন</option>
-        <option value="0">না</option>
-        <option value="1">হ্যাঁ</option>
-      </select>
+          <div class="form-group">
+            <label for="polydipsia">পলিডিপসিয়া (অতিরিক্ত তৃষ্ণা)</label>
+            <select id="polydipsia" required>
+              <option value="">নির্বাচন করুন</option>
+              <option value="0">না</option>
+              <option value="1">হ্যাঁ</option>
+            </select>
+          </div>
 
-      <label for="sudden_weight_loss">হঠাৎ ওজন কমে যাওয়া:</label>
-      <select id="sudden_weight_loss" required>
-        <option value="">নির্বাচন করুন</option>
-        <option value="0">না</option>
-        <option value="1">হ্যাঁ</option>
-      </select>
+          <div class="form-group">
+            <label for="sudden_weight_loss">হঠাৎ ওজন কমে যাওয়া</label>
+            <select id="sudden_weight_loss" required>
+              <option value="">নির্বাচন করুন</option>
+              <option value="0">না</option>
+              <option value="1">হ্যাঁ</option>
+            </select>
+          </div>
 
-      <label for="weakness">দুর্বলতা:</label>
-      <select id="weakness" required>
-        <option value="">নির্বাচন করুন</option>
-        <option value="0">না</option>
-        <option value="1">হ্যাঁ</option>
-      </select>
+          <div class="form-group">
+            <label for="weakness">দুর্বলতা</label>
+            <select id="weakness" required>
+              <option value="">নির্বাচন করুন</option>
+              <option value="0">না</option>
+              <option value="1">হ্যাঁ</option>
+            </select>
+          </div>
 
-      <label for="polyphagia">পলিফেজিয়া (অতিরিক্ত ক্ষুধা):</label>
-      <select id="polyphagia" required>
-        <option value="">নির্বাচন করুন</option>
-        <option value="0">না</option>
-        <option value="1">হ্যাঁ</option>
-      </select>
+          <div class="form-group">
+            <label for="polyphagia">পলিফেজিয়া (অতিরিক্ত ক্ষুধা)</label>
+            <select id="polyphagia" required>
+              <option value="">নির্বাচন করুন</option>
+              <option value="0">না</option>
+              <option value="1">হ্যাঁ</option>
+            </select>
+          </div>
 
-      <label for="visual_blurring">দৃষ্টি ঝাপসা হওয়া:</label>
-      <select id="visual_blurring" required>
-        <option value="">নির্বাচন করুন</option>
-        <option value="0">না</option>
-        <option value="1">হ্যাঁ</option>
-      </select>
+          <div class="form-group">
+            <label for="visual_blurring">দৃষ্টি ঝাপসা হওয়া</label>
+            <select id="visual_blurring" required>
+              <option value="">নির্বাচন করুন</option>
+              <option value="0">না</option>
+              <option value="1">হ্যাঁ</option>
+            </select>
+          </div>
 
-      <label for="itching">চুলকানি:</label>
-      <select id="itching" required>
-        <option value="">নির্বাচন করুন</option>
-        <option value="0">না</option>
-        <option value="1">হ্যাঁ</option>
-      </select>
+          <div class="form-group">
+            <label for="itching">চুলকানি</label>
+            <select id="itching" required>
+              <option value="">নির্বাচন করুন</option>
+              <option value="0">না</option>
+              <option value="1">হ্যাঁ</option>
+            </select>
+          </div>
 
-      <label for="irritability">খিটখিটে মেজাজ:</label>
-      <select id="irritability" required>
-        <option value="">নির্বাচন করুন</option>
-        <option value="0">না</option>
-        <option value="1">হ্যাঁ</option>
-      </select>
+          <div class="form-group">
+            <label for="irritability">খিটখিটে মেজাজ</label>
+            <select id="irritability" required>
+              <option value="">নির্বাচন করুন</option>
+              <option value="0">না</option>
+              <option value="1">হ্যাঁ</option>
+            </select>
+          </div>
 
-      <label for="delayed_healing">ক্ষত শুকাতে দেরি হওয়া:</label>
-      <select id="delayed_healing" required>
-        <option value="">নির্বাচন করুন</option>
-        <option value="0">না</option>
-        <option value="1">হ্যাঁ</option>
-      </select>
+          <div class="form-group">
+            <label for="delayed_healing">ক্ষত শুকাতে দেরি হওয়া</label>
+            <select id="delayed_healing" required>
+              <option value="">নির্বাচন করুন</option>
+              <option value="0">না</option>
+              <option value="1">হ্যাঁ</option>
+            </select>
+          </div>
 
-      <label for="partial_paresis">আংশিক প্যারেসিস (হাত‑পা অবশ/দুর্বলতা):</label>
-      <select id="partial_paresis" required>
-        <option value="">নির্বাচন করুন</option>
-        <option value="0">না</option>
-        <option value="1">হ্যাঁ</option>
-      </select>
+          <div class="form-group">
+            <label for="partial_paresis">আংশিক প্যারেসিস (হাত‑পা অবশ/দুর্বলতা)</label>
+            <select id="partial_paresis" required>
+              <option value="">নির্বাচন করুন</option>
+              <option value="0">না</option>
+              <option value="1">হ্যাঁ</option>
+            </select>
+          </div>
 
-      <label for="muscle_stiffness">মাংসপেশী শক্ত/আকড়ে ধরা (স্টিফনেস):</label>
-      <select id="muscle_stiffness" required>
-        <option value="">নির্বাচন করুন</option>
-        <option value="0">না</option>
-        <option value="1">হ্যাঁ</option>
-      </select>
+          <div class="form-group">
+            <label for="muscle_stiffness">মাংসপেশী শক্ত/আকড়ে ধরা (স্টিফনেস)</label>
+            <select id="muscle_stiffness" required>
+              <option value="">নির্বাচন করুন</option>
+              <option value="0">না</option>
+              <option value="1">হ্যাঁ</option>
+            </select>
+          </div>
 
-      <label for="alopecia">অ্যালোপেশিয়া (চুল পড়া):</label>
-      <select id="alopecia" required>
-        <option value="">নির্বাচন করুন</option>
-        <option value="0">না</option>
-        <option value="1">হ্যাঁ</option>
-      </select>
+          <div class="form-group">
+            <label for="alopecia">অ্যালোপেশিয়া (চুল পড়া)</label>
+            <select id="alopecia" required>
+              <option value="">নির্বাচন করুন</option>
+              <option value="0">না</option>
+              <option value="1">হ্যাঁ</option>
+            </select>
+          </div>
 
-      <label for="obesity">স্থূলতা (Obesity):</label>
-      <select id="obesity" required>
-        <option value="">নির্বাচন করুন</option>
-        <option value="0">না</option>
-        <option value="1">হ্যাঁ</option>
-      </select>
+          <div class="form-group">
+            <label for="obesity">স্থূলতা (Obesity)</label>
+            <select id="obesity" required>
+              <option value="">নির্বাচন করুন</option>
+              <option value="0">না</option>
+              <option value="1">হ্যাঁ</option>
+            </select>
+          </div>
+        </div>
 
-      <button type="submit" class="full-width">ঝুঁকি নির্ণয় করুন</button>
-    </form>
-    <div id="result"></div>
+        <button type="submit" class="submit-btn">
+          <span class="btn-text">ঝুঁকি নির্ণয় করুন</span>
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+
+    <div id="result" class="result-card hidden"></div>
   </div>
 
   <script src="js/app.js"></script>
