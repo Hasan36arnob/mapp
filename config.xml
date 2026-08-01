@@ -8,4 +8,9 @@
     <content src="index.html" />
     <access origin="*" />
     <platform name="android" />
+    <preference name="Orientation" value="portrait" />
+    <preference name="Fullscreen" value="false" />
+    <preference name="KeepRunning" value="true" />
+    <preference name="android-minSdkVersion" value="22" />
+    <preference name="android-targetSdkVersion" value="33" />
 </widget>

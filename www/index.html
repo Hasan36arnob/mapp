@@ -2,171 +2,833 @@
 <html lang="bn">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>বাংলাদেশি রোগীদের জন্য বাহ্যিক উপসর্গের ভিত্তিতে ডায়াবেটিস ঝুঁকি নির্ণয়</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ডায়াবেটিস ঝুঁকি নির্ণয় মোবাইল অ্যাপ</title>
   <link rel="stylesheet" href="css/index.css">
   <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
   <div class="background-decoration"></div>
-  <div class="main-container">
-    <header class="app-header">
-      <div class="header-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-        </svg>
+  
+  <!-- Login Page -->
+  <div id="loginPage" class="page-view active">
+    <div class="main-container">
+      <div class="app-header">
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+        </div>
+        <h1>ডায়াবেটিস ঝুঁকি নির্ণয়</h1>
+        <p class="subtitle">বাহ্যিক উপসর্গের ভিত্তিতে ঝুঁকি মূল্যায়ন</p>
       </div>
-      <h1>ডায়াবেটিস ঝুঁকি নির্ণয়</h1>
-      <p class="subtitle">বাহ্যিক উপসর্গের ভিত্তিতে ঝুঁকি মূল্যায়ন</p>
-    </header>
-    
-    <div class="form-card">
-      <form id="diabetesForm">
-        <div class="form-group">
-          <label for="age">বয়স (বছর)</label>
-          <input type="number" id="age" required placeholder="আপনার বয়স লিখুন">
+      
+      <div class="form-card auth-form">
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="loginEmail">ইমেইল</label>
+            <input type="email" id="loginEmail" required placeholder="আপনার ইমেইল লিখুন">
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">পাসওয়ার্ড</label>
+            <input type="password" id="loginPassword" required placeholder="পাসওয়ার্ড লিখুন">
+          </div>
+          <button type="submit" class="submit-btn">
+            <span class="btn-text">লগইন করুন</span>
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </form>
+        <div class="auth-toggle">
+          একাউন্ট নেই? <a onclick="showPage('registerPage')">রেজিস্ট্রেশন করুন</a>
         </div>
-
-        <div class="form-group">
-          <label for="gender">লিঙ্গ</label>
-          <select id="gender" required>
-            <option value="">নির্বাচন করুন</option>
-            <option value="0">মহিলা</option>
-            <option value="1">পুরুষ</option>
-          </select>
-        </div>
-
-        <div class="symptoms-section">
-          <h3>উপসর্গ নির্বাচন করুন</h3>
-          
-          <div class="form-group">
-            <label for="polyuria">পলিউরিয়া (বারবার প্রস্রাব হওয়া)</label>
-            <select id="polyuria" required>
-              <option value="">নির্বাচন করুন</option>
-              <option value="0">না</option>
-              <option value="1">হ্যাঁ</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="polydipsia">পলিডিপসিয়া (অতিরিক্ত তৃষ্ণা)</label>
-            <select id="polydipsia" required>
-              <option value="">নির্বাচন করুন</option>
-              <option value="0">না</option>
-              <option value="1">হ্যাঁ</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="sudden_weight_loss">হঠাৎ ওজন কমে যাওয়া</label>
-            <select id="sudden_weight_loss" required>
-              <option value="">নির্বাচন করুন</option>
-              <option value="0">না</option>
-              <option value="1">হ্যাঁ</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="weakness">দুর্বলতা</label>
-            <select id="weakness" required>
-              <option value="">নির্বাচন করুন</option>
-              <option value="0">না</option>
-              <option value="1">হ্যাঁ</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="polyphagia">পলিফেজিয়া (অতিরিক্ত ক্ষুধা)</label>
-            <select id="polyphagia" required>
-              <option value="">নির্বাচন করুন</option>
-              <option value="0">না</option>
-              <option value="1">হ্যাঁ</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="visual_blurring">দৃষ্টি ঝাপসা হওয়া</label>
-            <select id="visual_blurring" required>
-              <option value="">নির্বাচন করুন</option>
-              <option value="0">না</option>
-              <option value="1">হ্যাঁ</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="itching">চুলকানি</label>
-            <select id="itching" required>
-              <option value="">নির্বাচন করুন</option>
-              <option value="0">না</option>
-              <option value="1">হ্যাঁ</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="irritability">খিটখিটে মেজাজ</label>
-            <select id="irritability" required>
-              <option value="">নির্বাচন করুন</option>
-              <option value="0">না</option>
-              <option value="1">হ্যাঁ</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="delayed_healing">ক্ষত শুকাতে দেরি হওয়া</label>
-            <select id="delayed_healing" required>
-              <option value="">নির্বাচন করুন</option>
-              <option value="0">না</option>
-              <option value="1">হ্যাঁ</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="partial_paresis">আংশিক প্যারেসিস (হাত‑পা অবশ/দুর্বলতা)</label>
-            <select id="partial_paresis" required>
-              <option value="">নির্বাচন করুন</option>
-              <option value="0">না</option>
-              <option value="1">হ্যাঁ</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="muscle_stiffness">মাংসপেশী শক্ত/আকড়ে ধরা (স্টিফনেস)</label>
-            <select id="muscle_stiffness" required>
-              <option value="">নির্বাচন করুন</option>
-              <option value="0">না</option>
-              <option value="1">হ্যাঁ</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="alopecia">অ্যালোপেশিয়া (চুল পড়া)</label>
-            <select id="alopecia" required>
-              <option value="">নির্বাচন করুন</option>
-              <option value="0">না</option>
-              <option value="1">হ্যাঁ</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="obesity">স্থূলতা (Obesity)</label>
-            <select id="obesity" required>
-              <option value="">নির্বাচন করুন</option>
-              <option value="0">না</option>
-              <option value="1">হ্যাঁ</option>
-            </select>
-          </div>
-        </div>
-
-        <button type="submit" class="submit-btn">
-          <span class="btn-text">ঝুঁকি নির্ণয় করুন</span>
+        <button onclick="showPage('registerPage')" class="submit-btn" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); margin-top: 15px;">
+          <span class="btn-text">নতুন একাউন্ট তৈরি করুন</span>
           <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="8.5" cy="7" r="4"/>
+            <line x1="20" y1="8" x2="20" y2="14"/>
+            <line x1="23" y1="11" x2="17" y2="11"/>
           </svg>
         </button>
-      </form>
+      </div>
     </div>
+  </div>
 
-    <div id="result" class="result-card hidden"></div>
+  <!-- Registration Page -->
+  <div id="registerPage" class="page-view">
+    <div class="main-container">
+      <div class="app-header">
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="8.5" cy="7" r="4"/>
+            <line x1="20" y1="8" x2="20" y2="14"/>
+            <line x1="23" y1="11" x2="17" y2="11"/>
+          </svg>
+        </div>
+        <h1>রেজিস্ট্রেশন</h1>
+        <p class="subtitle">নতুন একাউন্ট তৈরি করুন</p>
+      </div>
+      
+      <div class="form-card auth-form">
+        <form id="registerForm">
+          <div class="form-group">
+            <label for="registerName">নাম</label>
+            <input type="text" id="registerName" required placeholder="আপনার নাম লিখুন">
+          </div>
+          <div class="form-group">
+            <label for="registerEmail">ইমেইল</label>
+            <input type="email" id="registerEmail" required placeholder="আপনার ইমেইল লিখুন">
+          </div>
+          <div class="form-group">
+            <label for="registerPassword">পাসওয়ার্ড</label>
+            <input type="password" id="registerPassword" required placeholder="শক্ত পাসওয়ার্ড লিখুন">
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">পাসওয়ার্ড নিশ্চিত করুন</label>
+            <input type="password" id="confirmPassword" required placeholder="পাসওয়ার্ড আবার লিখুন">
+          </div>
+          <button type="submit" class="submit-btn">
+            <span class="btn-text">রেজিস্ট্রেশন করুন</span>
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </form>
+        <div class="auth-toggle">
+          আগেই একাউন্ট আছে? <a onclick="showPage('loginPage')">লগইন করুন</a>
+        </div>
+        <button onclick="showPage('loginPage')" class="submit-btn" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin-top: 15px;">
+          <span class="btn-text">লগইন পেজে যান</span>
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard Page -->
+  <div id="dashboardPage" class="page-view">
+    <div class="main-container">
+      <div class="app-header">
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <h1>ড্যাশবোর্ড</h1>
+        <p class="subtitle">স্বাগতম, <span id="userName">ব্যবহারকারী</span></p>
+      </div>
+      
+      <div class="dashboard-grid">
+        <div class="feature-card" onclick="showPage('riskAssessmentPage')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+          <h3>ঝুঁকি নির্ণয়</h3>
+          <p>ডায়াবেটিস ঝুঁকি পরীক্ষা করুন</p>
+        </div>
+        
+        <div class="feature-card" onclick="showPage('dietPage')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+            <line x1="6" y1="1" x2="6" y2="4"/>
+            <line x1="10" y1="1" x2="10" y2="4"/>
+            <line x1="14" y1="1" x2="14" y2="4"/>
+          </svg>
+          <h3>খাদ্য নির্দেশিকা</h3>
+          <p>স্বাস্থ্যকর খাদ্যাভ্যাস</p>
+        </div>
+        
+        <div class="feature-card" onclick="showPage('exercisePage')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6.5 6.5l11 11"/>
+            <path d="M21 21l-1-1"/>
+            <path d="M3 3l1 1"/>
+            <path d="M18 22l4-4"/>
+            <path d="M2 6l4-4"/>
+            <path d="M3 10l7-7 7 7"/>
+            <path d="M14 21l-7-7"/>
+          </svg>
+          <h3>ব্যায়াম নির্দেশিকা</h3>
+          <p>শারীরিক কর্মকাণ্ড</p>
+        </div>
+        
+        <div class="feature-card" onclick="showPage('hospitalPage')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 21h18"/>
+            <path d="M5 21V7l8-4 8 4v14"/>
+            <path d="M17 21v-8.5a1.5 1.5 0 0 0-3 0V21"/>
+            <path d="M7 21v-4"/>
+          </svg>
+          <h3>হাসপাতাল</h3>
+          <p>ডায়াবেটিস চিকিৎসাকেন্দ্র</p>
+        </div>
+        
+        <div class="feature-card" onclick="showPage('physicianPage')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <h3>চিকিৎসক</h3>
+          <p>বিশেষজ্ঞ ডাক্তারের তালিকা</p>
+        </div>
+        
+        <div class="feature-card" onclick="showPage('tasksPage')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 20h9"/>
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+          </svg>
+          <h3>টাস্ক তালিকা</h3>
+          <p>দৈনিক কাজের তালিকা</p>
+        </div>
+        
+        <div class="feature-card" onclick="showPage('profilePage')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <h3>প্রোফাইল</h3>
+          <p>ব্যক্তিগত তথ্য</p>
+        </div>
+        
+        <div class="feature-card" onclick="showPage('settingsPage')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          <h3>সেটিংস</h3>
+          <p>অ্যাপ সেটিংস</p>
+        </div>
+      </div>
+      
+      <div class="content-section" style="margin-top: 20px;">
+        <h3>স্বাস্থ্য টিপস</h3>
+        <ul>
+          <li>🥗 প্রতিদিন সবুজ শাকসবজি খান</li>
+          <li>💧 পর্যাপ্ত পানি পান করুন</li>
+          <li>🚶 নিয়মিত ৩০ মিনিট হাঁটুন</li>
+          <li>😴 পর্যাপ্ত ঘুমান</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Risk Assessment Page -->
+  <div id="riskAssessmentPage" class="page-view">
+    <div class="main-container">
+      <div class="back-btn" onclick="showPage('dashboardPage')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        ফিরে যান
+      </div>
+      
+      <div class="app-header">
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+        </div>
+        <h1>ডায়াবেটিস ঝুঁকি নির্ণয়</h1>
+        <p class="subtitle">বাহ্যিক উপসর্গের ভিত্তিতে ঝুঁকি মূল্যায়ন</p>
+      </div>
+      
+      <div class="form-card">
+        <form id="diabetesForm">
+          <div class="form-group">
+            <label for="age">বয়স (বছর)</label>
+            <input type="number" id="age" required placeholder="আপনার বয়স লিখুন">
+          </div>
+
+          <div class="form-group">
+            <label for="gender">লিঙ্গ</label>
+            <select id="gender" required>
+              <option value="">নির্বাচন করুন</option>
+              <option value="0">মহিলা</option>
+              <option value="1">পুরুষ</option>
+            </select>
+          </div>
+
+          <div class="symptoms-section">
+            <h3>উপসর্গ নির্বাচন করুন</h3>
+            
+            <div class="form-group">
+              <label for="polyuria">পলিউরিয়া (বারবার প্রস্রাব হওয়া)</label>
+              <select id="polyuria" required>
+                <option value="">নির্বাচন করুন</option>
+                <option value="0">না</option>
+                <option value="1">হ্যাঁ</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="polydipsia">পলিডিপসিয়া (অতিরিক্ত তৃষ্ণা)</label>
+              <select id="polydipsia" required>
+                <option value="">নির্বাচন করুন</option>
+                <option value="0">না</option>
+                <option value="1">হ্যাঁ</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="sudden_weight_loss">হঠাৎ ওজন কমে যাওয়া</label>
+              <select id="sudden_weight_loss" required>
+                <option value="">নির্বাচন করুন</option>
+                <option value="0">না</option>
+                <option value="1">হ্যাঁ</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="weakness">দুর্বলতা</label>
+              <select id="weakness" required>
+                <option value="">নির্বাচন করুন</option>
+                <option value="0">না</option>
+                <option value="1">হ্যাঁ</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="polyphagia">পলিফেজিয়া (অতিরিক্ত ক্ষুধা)</label>
+              <select id="polyphagia" required>
+                <option value="">নির্বাচন করুন</option>
+                <option value="0">না</option>
+                <option value="1">হ্যাঁ</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="visual_blurring">দৃষ্টি ঝাপসা হওয়া</label>
+              <select id="visual_blurring" required>
+                <option value="">নির্বাচন করুন</option>
+                <option value="0">না</option>
+                <option value="1">হ্যাঁ</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="itching">চুলকানি</label>
+              <select id="itching" required>
+                <option value="">নির্বাচন করুন</option>
+                <option value="0">না</option>
+                <option value="1">হ্যাঁ</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="irritability">খিটখিটে মেজাজ</label>
+              <select id="irritability" required>
+                <option value="">নির্বাচন করুন</option>
+                <option value="0">না</option>
+                <option value="1">হ্যাঁ</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="delayed_healing">ক্ষত শুকাতে দেরি হওয়া</label>
+              <select id="delayed_healing" required>
+                <option value="">নির্বাচন করুন</option>
+                <option value="0">না</option>
+                <option value="1">হ্যাঁ</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="partial_paresis">আংশিক প্যারেসিস (হাত‑পা অবশ/দুর্বলতা)</label>
+              <select id="partial_paresis" required>
+                <option value="">নির্বাচন করুন</option>
+                <option value="0">না</option>
+                <option value="1">হ্যাঁ</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="muscle_stiffness">মাংসপেশী শক্ত/আকড়ে ধরা (স্টিফনেস)</label>
+              <select id="muscle_stiffness" required>
+                <option value="">নির্বাচন করুন</option>
+                <option value="0">না</option>
+                <option value="1">হ্যাঁ</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="alopecia">অ্যালোপেশিয়া (চুল পড়া)</label>
+              <select id="alopecia" required>
+                <option value="">নির্বাচন করুন</option>
+                <option value="0">না</option>
+                <option value="1">হ্যাঁ</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="obesity">স্থূলতা (Obesity)</label>
+              <select id="obesity" required>
+                <option value="">নির্বাচন করুন</option>
+                <option value="0">না</option>
+                <option value="1">হ্যাঁ</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">
+            <span class="btn-text">ঝুঁকি নির্ণয় করুন</span>
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <div id="result" class="result-card hidden"></div>
+    </div>
+  </div>
+
+  <!-- Diet Page -->
+  <div id="dietPage" class="page-view">
+    <div class="main-container">
+      <div class="back-btn" onclick="showPage('dashboardPage')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        ফিরে যান
+      </div>
+      
+      <div class="app-header">
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+            <line x1="6" y1="1" x2="6" y2="4"/>
+            <line x1="10" y1="1" x2="10" y2="4"/>
+            <line x1="14" y1="1" x2="14" y2="4"/>
+          </svg>
+        </div>
+        <h1>খাদ্য নির্দেশিকা</h1>
+        <p class="subtitle">ডায়াবেটিস রোগীদের জন্য স্বাস্থ্যকর খাদ্যাভ্যাস</p>
+      </div>
+      
+      <div class="content-section">
+        <h3>স্বাস্থ্যকর খাবার</h3>
+        <ul>
+          <li class="food-item good"><span class="icon"></span>পালং শাক, লাল শাক, পুঁইশাক</li>
+          <li class="food-item good"><span class="icon"></span>পেঁপে, কমলা, আম (পাকা)</li>
+          <li class="food-item good"><span class="icon"></span>বিন, বুট, মটর</li>
+          <li class="food-item good"><span class="icon"></span>দেশি মাছ (কার্প জাতীয়)</li>
+          <li class="food-item good"><span class="icon"></span>চিনি ছাড়া দই</li>
+          <li class="food-item good"><span class="icon"></span>বাদাম ও বীজ (পরিমিত)</li>
+        </ul>
+      </div>
+      
+      <div class="content-section">
+        <h3>এড়িয়ে চলার খাবার</h3>
+        <ul>
+          <li class="food-item bad"><span class="icon"></span>চিনি ও মিষ্টান্ন</li>
+          <li class="food-item bad"><span class="icon"></span>সাদা চাল, সাদা রুটি</li>
+          <li class="food-item bad"><span class="icon"></span>ফাস্ট ফুড</li>
+          <li class="food-item bad"><span class="icon"></span>কোমল পানীয়</li>
+          <li class="food-item bad"><span class="icon"></span>প্রক্রিয়াজাত মাংস</li>
+          <li class="food-item bad"><span class="icon"></span>অতিরিক্ত তেল ও চর্বি</li>
+        </ul>
+      </div>
+      
+      <div class="content-section">
+        <h3>খাদ্যাভ্যাস টিপস</h3>
+        <ul>
+          <li>🍽️ ছোট প্লেটে খান</li>
+          <li>⏰ নির্দিষ্ট সময়ে খান</li>
+          <li>🥗 খাবারের আগে স্যালাড খান</li>
+          <li>💧 খাবারের সাথে পানি পান করুন</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exercise Page -->
+  <div id="exercisePage" class="page-view">
+    <div class="main-container">
+      <div class="back-btn" onclick="showPage('dashboardPage')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        ফিরে যান
+      </div>
+      
+      <div class="app-header">
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6.5 6.5l11 11"/>
+            <path d="M21 21l-1-1"/>
+            <path d="M3 3l1 1"/>
+            <path d="M18 22l4-4"/>
+            <path d="M2 6l4-4"/>
+            <path d="M3 10l7-7 7 7"/>
+            <path d="M14 21l-7-7"/>
+          </svg>
+        </div>
+        <h1>ব্যায়াম নির্দেশিকা</h1>
+        <p class="subtitle">ডায়াবেটিস প্রতিরোধে শারীরিক কর্মকাণ্ড</p>
+      </div>
+      
+      <div class="content-section">
+        <h3>অ্যারোবিক ব্যায়াম</h3>
+        <ul>
+          <li>🚶 দ্রুত হাঁটা - দৈনিক ৩০ মিনিট</li>
+          <li>🏃 জগিং - সপ্তাহে ৩ দিন, ২০ মিনিট</li>
+          <li>🚴 সাইকেল চালানো - দৈনিক ২০-৩০ মিনিট</li>
+          <li>🏊 সাঁতার - সপ্তাহে ২-৩ দিন</li>
+          <li>💃 নাচ - সপ্তাহে ২-৩ দিন</li>
+        </ul>
+      </div>
+      
+      <div class="content-section">
+        <h3>শক্তি প্রশিক্ষণ</h3>
+        <ul>
+          <li>💪 হালকা ওজন উত্তোলন - সপ্তাহে ২-৩ দিন</li>
+          <li>🧘 যোগব্যায়াম - দৈনিক ১৫-২০ মিনিট</li>
+          <li>🤸 স্ট্রেচিং - দৈনিক ১০ মিনিট</li>
+          <li>🏋️ রেজিস্ট্যান্স ব্যায়াম - সপ্তাহে ২ দিন</li>
+        </ul>
+      </div>
+      
+      <div class="content-section">
+        <h3>ব্যায়াম টিপস</h3>
+        <ul>
+          <li>⏰ ব্যায়ামের আগে ওয়ার্মআপ করুন</li>
+          <li>💧 ব্যায়ামের সময় পানি পান করুন</li>
+          <li>🩺 ডাক্তারের পরামর্শ নিন</li>
+          <li>📈 ধীরে ধীরে তীব্রতা বাড়ান</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hospital Page -->
+  <div id="hospitalPage" class="page-view">
+    <div class="main-container">
+      <div class="back-btn" onclick="showPage('dashboardPage')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        ফিরে যান
+      </div>
+      
+      <div class="app-header">
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 21h18"/>
+            <path d="M5 21V7l8-4 8 4v14"/>
+            <path d="M17 21v-8.5a1.5 1.5 0 0 0-3 0V21"/>
+            <path d="M7 21v-4"/>
+          </svg>
+        </div>
+        <h1>হাসপাতাল ও চিকিৎসাকেন্দ্র</h1>
+        <p class="subtitle">বাংলাদেশের শ্রেষ্ঠ ডায়াবেটিস চিকিৎসাকেন্দ্র</p>
+      </div>
+      
+      <div class="hospital-card">
+        <h3>বারডেম হাসপাতাল</h3>
+        <p>📍 ঢাকা: শাহবাগ, ঢাকা ১০০০</p>
+        <p>📞 ০২-৮১১০০০০</p>
+        <p>⏰ ২৪ ঘন্টা জরুরি সেবা</p>
+        <a href="tel:028110000" class="contact-btn">কল করুন</a>
+      </div>
+      
+      <div class="hospital-card">
+        <h3>বিআইজিএম হাসপাতাল</h3>
+        <p>📍 ঢাকা: ঢাকা মেডিকেল কলেজ ক্যাম্পাস</p>
+        <p>📞 ০২-৫৫১৬৫০০০</p>
+        <p>⏰ সকাল ৮টা - রাত ৮টা</p>
+        <a href="tel:0255165000" class="contact-btn">কল করুন</a>
+      </div>
+      
+      <div class="hospital-card">
+        <h3>ইউনাইটেড হাসপাতাল</h3>
+        <p>📍 ঢাকা: গুলশান-১, ঢাকা</p>
+        <p>📞 ০১৭১৩-০০০০০০</p>
+        <p>⏰ ২৪ ঘন্টা সেবা</p>
+        <a href="tel:01713000000" class="contact-btn">কল করুন</a>
+      </div>
+      
+      <div class="hospital-card">
+        <h3>স্কয়ার হাসপাতাল</h3>
+        <p>📍 ঢাকা: পান্থপথ, ঢাকা</p>
+        <p>📞 ০১৬১১-০০০০০০</p>
+        <p>⏰ ২৪ ঘন্টা সেবা</p>
+        <a href="tel:01611000000" class="contact-btn">কল করুন</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Physician Page -->
+  <div id="physicianPage" class="page-view">
+    <div class="main-container">
+      <div class="back-btn" onclick="showPage('dashboardPage')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        ফিরে যান
+      </div>
+      
+      <div class="app-header">
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+        <h1>বিশেষজ্ঞ চিকিৎসক</h1>
+        <p class="subtitle">ডায়াবেটিস বিশেষজ্ঞ ডাক্তারের তালিকা</p>
+      </div>
+      
+      <div class="physician-card">
+        <h3>ডা. এ কে আজাদ খান</h3>
+        <p>🎓 এমবিবিএস, এফসিপিএস (মেডিসিন), এফআরসিপি (এডিনবার্গ)</p>
+        <p>🏥 বারডেম হাসপাতাল</p>
+        <p>🩺 এন্ডোক্রিনোলজি ও ডায়াবেটিস বিশেষজ্ঞ</p>
+        <p>📞 ০১৭১১-১২৩৪৫৬</p>
+        <a href="tel:01711123456" class="contact-btn">কল করুন</a>
+      </div>
+      
+      <div class="physician-card">
+        <h3>ডা. ফিরোজা খানম</h3>
+        <p>🎓 এমবিবিএস, এফসিপিএস (মেডিসিন), এমডি (এন্ডোক্রিনোলজি)</p>
+        <p>🏥 বিআইজিএম হাসপাতাল</p>
+        <p>🩺 ডায়াবেটিস ও হরমোন বিশেষজ্ঞ</p>
+        <p>📞 ০১৮১৯-৮৭৬৫৪৩</p>
+        <a href="tel:01819876543" class="contact-btn">কল করুন</a>
+      </div>
+      
+      <div class="physician-card">
+        <h3>ডা. মোহাম্মদ আলী</h3>
+        <p>🎓 এমবিবিএস, এফসিপিএস (মেডিসিন), এমডি (এন্ডোক্রিনোলজি)</p>
+        <p>🏥 ইউনাইটেড হাসপাতাল</p>
+        <p>🩺 এন্ডোক্রিনোলজি বিশেষজ্ঞ</p>
+        <p>📞 ০১৫৫২-৩৪৫৬৭৮</p>
+        <a href="tel:01552345678" class="contact-btn">কল করুন</a>
+      </div>
+      
+      <div class="physician-card">
+        <h3>ডা. সালমা বেগম</h3>
+        <p>🎓 এমবিবিএস, এফসিপিএস (মেডিসিন), এমডি (এন্ডোক্রিনোলজি)</p>
+        <p>🏥 স্কয়ার হাসপাতাল</p>
+        <p>🩺 ডায়াবেটিস ও মেটাবলিক বিশেষজ্ঞ</p>
+        <p>📞 ০১৭১৩-৯৮৭৬৫৪</p>
+        <a href="tel:01713987654" class="contact-btn">কল করুন</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tasks Page -->
+  <div id="tasksPage" class="page-view">
+    <div class="main-container">
+      <div class="back-btn" onclick="showPage('dashboardPage')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        ফিরে যান
+      </div>
+      
+      <div class="app-header">
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 20h9"/>
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+          </svg>
+        </div>
+        <h1>টাস্ক তালিকা</h1>
+        <p class="subtitle">দৈনিক স্বাস্থ্য কাজের তালিকা</p>
+      </div>
+      
+      <div class="form-card">
+        <div class="task-input">
+          <input type="text" id="newTask" placeholder="নতুন কাজ যোগ করুন...">
+          <button onclick="addTask()">যোগ করুন</button>
+        </div>
+        <ul id="taskList" class="task-list">
+          <!-- Tasks will be added here dynamically -->
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Page -->
+  <div id="profilePage" class="page-view">
+    <div class="main-container">
+      <div class="back-btn" onclick="showPage('dashboardPage')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        ফিরে যান
+      </div>
+      
+      <div class="app-header">
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+        <h1>প্রোফাইল</h1>
+        <p class="subtitle">ব্যক্তিগত তথ্য</p>
+      </div>
+      
+      <div class="form-card">
+        <div class="form-group">
+          <label>নাম</label>
+          <input type="text" id="profileName" readonly>
+        </div>
+        <div class="form-group">
+          <label>ইমেইল</label>
+          <input type="email" id="profileEmail" readonly>
+        </div>
+        <div class="form-group">
+          <label>রেজিস্ট্রেশন তারিখ</label>
+          <input type="text" id="profileDate" readonly>
+        </div>
+        <button onclick="showPage('settingsPage')" class="submit-btn">
+          <span class="btn-text">সেটিংস পরিবর্তন করুন</span>
+        </button>
+        <button onclick="logout()" class="submit-btn" style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); margin-top: 10px;">
+          <span class="btn-text">লগআউট করুন</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Page -->
+  <div id="settingsPage" class="page-view">
+    <div class="main-container">
+      <div class="back-btn" onclick="showPage('dashboardPage')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        ফিরে যান
+      </div>
+      
+      <div class="app-header">
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </div>
+        <h1>সেটিংস</h1>
+        <p class="subtitle">অ্যাপ সেটিংস কনফিগারেশন</p>
+      </div>
+      
+      <div class="form-card">
+        <div class="form-group">
+          <label>নোটিফিকেশন</label>
+          <select id="notificationSetting">
+            <option value="enabled">সক্রিয়</option>
+            <option value="disabled">নিষ্ক্রিয়</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>ভাষা</label>
+          <select id="languageSetting">
+            <option value="bn">বাংলা</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>থিম</label>
+          <select id="themeSetting">
+            <option value="light">লাইট</option>
+            <option value="dark">ডার্ক</option>
+          </select>
+        </div>
+        <button onclick="saveSettings()" class="submit-btn">
+          <span class="btn-text">সেটিংস সংরক্ষণ করুন</span>
+        </button>
+      </div>
+      
+      <div class="content-section" style="margin-top: 20px;">
+        <h3>অ্যাপ সম্পর্কে</h3>
+        <ul>
+          <li>📱 ভার্সন: 1.0.0</li>
+          <li>🏥 ডায়াবেটিস ঝুঁকি নির্ণয় অ্যাপ</li>
+          <li>🇧🇩 বাংলাদেশি রোগীদের জন্য তৈরি</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help Page -->
+  <div id="helpPage" class="page-view">
+    <div class="main-container">
+      <div class="back-btn" onclick="showPage('dashboardPage')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        ফিরে যান
+      </div>
+      
+      <div class="app-header">
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <h1>সাহায্য ও সমর্থন</h1>
+        <p class="subtitle">অ্যাপ ব্যবহারের নির্দেশিকা</p>
+      </div>
+      
+      <div class="content-section">
+        <h3>কিভাবে ঝুঁকি নির্ণয় করবেন?</h3>
+        <p>ড্যাশবোর্ড থেকে "ঝুঁকি নির্ণয়" কার্ডে ক্লিক করুন এবং আপনার উপসর্গগুলো নির্বাচন করে "ঝুঁকি নির্ণয় করুন" বাটনে চাপ দিন।</p>
+      </div>
+      
+      <div class="content-section">
+        <h3>টাস্ক কিভাবে যোগ করবেন?</h3>
+        <p>টাস্ক পেজে গিয়ে ইনপুট বক্সে আপনার কাজ লিখুন এবং "যোগ করুন" বাটনে চাপ দিন।</p>
+      </div>
+      
+      <div class="content-section">
+        <h3>যোগাযোগ</h3>
+        <p>📧 support@diabetesapp.com</p>
+        <p>📞 ০১৭১১-০০০০০০</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <div class="mobile-nav" id="mobileNav" style="display: none;">
+    <a href="#" class="nav-item active" onclick="showPage('dashboardPage'); return false;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      <span>হোম</span>
+    </a>
+    <a href="#" class="nav-item" onclick="showPage('riskAssessmentPage'); return false;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+      </svg>
+      <span>ঝুঁকি</span>
+    </a>
+    <a href="#" class="nav-item" onclick="showPage('tasksPage'); return false;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 20h9"/>
+        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+      </svg>
+      <span>টাস্ক</span>
+    </a>
+    <a href="#" class="nav-item" onclick="showPage('profilePage'); return false;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg>
+      <span>প্রোফাইল</span>
+    </a>
   </div>
 
   <script src="js/app.js"></script>
