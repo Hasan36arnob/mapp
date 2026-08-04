@@ -1,9 +1,32 @@
 // Mobile App Navigation and Functionality
 
+// Safe localStorage wrapper with error handling
+function safeLocalStorage() {
+  try {
+    const testKey = '__test__';
+    localStorage.setItem(testKey, testKey);
+    localStorage.removeItem(testKey);
+    return localStorage;
+  } catch (e) {
+    console.error('localStorage not available:', e);
+    return {
+      getItem: () => null,
+      setItem: () => {},
+      removeItem: () => {},
+      clear: () => {}
+    };
+  }
+}
+
+const storage = safeLocalStorage();
+
 // Page Navigation System
 function showPage(pageId) {
+  console.log('Navigating to page:', pageId);
+  
   // Hide all pages
   const pages = document.querySelectorAll('.page-view');
+  console.log('Found pages:', pages.length);
   pages.forEach(page => {
     page.classList.remove('active');
   });
@@ -11,7 +34,10 @@ function showPage(pageId) {
   // Show selected page
   const selectedPage = document.getElementById(pageId);
   if (selectedPage) {
+    console.log('Page found, activating:', pageId);
     selectedPage.classList.add('active');
+  } else {
+    console.error('Page not found:', pageId);
   }
   
   // Update navigation
@@ -19,10 +45,14 @@ function showPage(pageId) {
   
   // Show/hide mobile navigation
   const mobileNav = document.getElementById('mobileNav');
-  if (pageId === 'loginPage' || pageId === 'registerPage') {
-    mobileNav.style.display = 'none';
+  if (mobileNav) {
+    if (pageId === 'loginPage' || pageId === 'registerPage') {
+      mobileNav.style.display = 'none';
+    } else {
+      mobileNav.style.display = 'flex';
+    }
   } else {
-    mobileNav.style.display = 'flex';
+    console.error('mobileNav element not found');
   }
   
   // Update profile if on profile page
@@ -54,8 +84,8 @@ function updateNavigation(pageId) {
 }
 
 // Authentication System
-const users = JSON.parse(localStorage.getItem('diabetesAppUsers')) || [];
-let currentUser = JSON.parse(localStorage.getItem('diabetesAppCurrentUser')) || null;
+const users = JSON.parse(storage.getItem('diabetesAppUsers')) || [];
+let currentUser = JSON.parse(storage.getItem('diabetesAppCurrentUser')) || null;
 
 // Setup Form Handlers after DOM is ready
 function setupFormHandlers() {
@@ -72,7 +102,7 @@ function setupFormHandlers() {
       
       if (user) {
         currentUser = user;
-        localStorage.setItem('diabetesAppCurrentUser', JSON.stringify(currentUser));
+        storage.setItem('diabetesAppCurrentUser', JSON.stringify(currentUser));
         document.getElementById('userName').textContent = user.name;
         showPage('dashboardPage');
         showNotification('সফলভাবে লগইন হয়েছে!', 'success');
@@ -113,10 +143,10 @@ function setupFormHandlers() {
       };
       
       users.push(newUser);
-      localStorage.setItem('diabetesAppUsers', JSON.stringify(users));
+      storage.setItem('diabetesAppUsers', JSON.stringify(users));
       
       currentUser = newUser;
-      localStorage.setItem('diabetesAppCurrentUser', JSON.stringify(currentUser));
+      storage.setItem('diabetesAppCurrentUser', JSON.stringify(currentUser));
       
       document.getElementById('userName').textContent = name;
       showPage('dashboardPage');
@@ -127,7 +157,7 @@ function setupFormHandlers() {
 
 function logout() {
   currentUser = null;
-  localStorage.removeItem('diabetesAppCurrentUser');
+  storage.removeItem('diabetesAppCurrentUser');
   showPage('loginPage');
   showNotification('লগআউট হয়েছে!', 'success');
 }
@@ -153,7 +183,7 @@ function saveSettings() {
     theme: theme
   };
   
-  localStorage.setItem('diabetesAppSettings', JSON.stringify(settings));
+  storage.setItem('diabetesAppSettings', JSON.stringify(settings));
   showNotification('সেটিংস সংরক্ষিত হয়েছে!', 'success');
 }
 
@@ -196,8 +226,8 @@ function addTask() {
     const userIndex = users.findIndex(u => u.id === currentUser.id);
     if (userIndex !== -1) {
       users[userIndex] = currentUser;
-      localStorage.setItem('diabetesAppUsers', JSON.stringify(users));
-      localStorage.setItem('diabetesAppCurrentUser', JSON.stringify(currentUser));
+      storage.setItem('diabetesAppUsers', JSON.stringify(users));
+      storage.setItem('diabetesAppCurrentUser', JSON.stringify(currentUser));
     }
     
     taskInput.value = '';
@@ -214,8 +244,8 @@ function toggleTask(index) {
     const userIndex = users.findIndex(u => u.id === currentUser.id);
     if (userIndex !== -1) {
       users[userIndex] = currentUser;
-      localStorage.setItem('diabetesAppUsers', JSON.stringify(users));
-      localStorage.setItem('diabetesAppCurrentUser', JSON.stringify(currentUser));
+      storage.setItem('diabetesAppUsers', JSON.stringify(users));
+      storage.setItem('diabetesAppCurrentUser', JSON.stringify(currentUser));
     }
     
     loadTasks();
@@ -230,8 +260,8 @@ function deleteTask(index) {
     const userIndex = users.findIndex(u => u.id === currentUser.id);
     if (userIndex !== -1) {
       users[userIndex] = currentUser;
-      localStorage.setItem('diabetesAppUsers', JSON.stringify(users));
-      localStorage.setItem('diabetesAppCurrentUser', JSON.stringify(currentUser));
+      storage.setItem('diabetesAppUsers', JSON.stringify(users));
+      storage.setItem('diabetesAppCurrentUser', JSON.stringify(currentUser));
     }
     
     loadTasks();
@@ -316,6 +346,10 @@ document.head.appendChild(style);
 
 // Initialize App
 function initApp() {
+  console.log('App initialization started');
+  console.log('Cordova available:', typeof cordova !== 'undefined');
+  console.log('Platform:', typeof cordova !== 'undefined' ? cordova.platformId : 'browser');
+  
   // Setup form handlers
   setupFormHandlers();
   
@@ -584,15 +618,23 @@ function initApp() {
   }
   
   // Check if user is logged in
+  console.log('Checking user authentication. Current user:', currentUser);
   if (currentUser) {
-    document.getElementById('userName').textContent = currentUser.name;
+    console.log('User is logged in, showing dashboard for:', currentUser.name);
+    const userNameElement = document.getElementById('userName');
+    if (userNameElement) {
+      userNameElement.textContent = currentUser.name;
+    } else {
+      console.error('userName element not found');
+    }
     showPage('dashboardPage');
   } else {
+    console.log('No user logged in, showing login page');
     showPage('loginPage');
   }
   
   // Load settings
-  const settings = JSON.parse(localStorage.getItem('diabetesAppSettings'));
+  const settings = JSON.parse(storage.getItem('diabetesAppSettings'));
   if (settings) {
     document.getElementById('notificationSetting').value = settings.notification || 'enabled';
     document.getElementById('languageSetting').value = settings.language || 'bn';
@@ -633,5 +675,31 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-// Start the app
-document.addEventListener('DOMContentLoaded', initApp);
+// Start the app - wait for Cordova deviceready on mobile, or DOMContentLoaded in browser
+function startApp() {
+  // Check if running in Cordova environment
+  if (typeof cordova !== 'undefined') {
+    // Cordova environment - wait for deviceready
+    document.addEventListener('deviceready', () => {
+      console.log('Cordova deviceready fired, initializing app');
+      console.log('Platform:', cordova.platformId);
+      console.log('Version:', cordova.version);
+      initApp();
+    }, false);
+  } else {
+    // Browser environment - initialize on DOMContentLoaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        console.log('DOMContentLoaded fired, initializing app');
+        initApp();
+      });
+    } else {
+      // DOM already loaded
+      console.log('DOM already loaded, initializing app immediately');
+      initApp();
+    }
+  }
+}
+
+// Start the app initialization
+startApp();
