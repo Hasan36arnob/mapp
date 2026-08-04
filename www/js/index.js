@@ -26,4 +26,10 @@ function onDeviceReady() {
 
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
     document.getElementById('deviceready').classList.add('ready');
+    
+    // Initialize the main app after Cordova is ready
+    if (typeof initApp === 'function') {
+        console.log('Initializing main app after Cordova deviceready');
+        initApp();
+    }
 }
