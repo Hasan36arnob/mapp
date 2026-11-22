@@ -85,9 +85,16 @@ function updateNavigation(pageId) {
 
 // Authentication System
 const users = JSON.parse(storage.getItem('diabetesAppUsers')) || [];
-let currentUser = JSON.parse(storage.getItem('diabetesAppCurrentUser')) || null;
+let currentUser = JSON.parse(storage.getItem('diabetesAppCurrentUser')) || {
+  id: 'guest',
+  name: 'ব্যবহারকারী',
+  email: '—',
+  registrationDate: '—',
+  tasks: []
+};
 
-// Setup Form Handlers after DOM is ready
+// Authentication form handlers are temporarily disabled with their pages.
+/*
 function setupFormHandlers() {
   // Login Form Handler
   const loginForm = document.getElementById('loginForm');
@@ -161,6 +168,16 @@ function logout() {
   showPage('loginPage');
   showNotification('লগআউট হয়েছে!', 'success');
 }
+*/
+
+function saveCurrentUser() {
+  const userIndex = users.findIndex(user => user.id === currentUser.id);
+  if (userIndex !== -1) {
+    users[userIndex] = currentUser;
+    storage.setItem('diabetesAppUsers', JSON.stringify(users));
+  }
+  storage.setItem('diabetesAppCurrentUser', JSON.stringify(currentUser));
+}
 
 // Profile Management
 function updateProfile() {
@@ -222,13 +239,7 @@ function addTask() {
       createdAt: new Date().toISOString()
     });
     
-    // Update user in localStorage
-    const userIndex = users.findIndex(u => u.id === currentUser.id);
-    if (userIndex !== -1) {
-      users[userIndex] = currentUser;
-      storage.setItem('diabetesAppUsers', JSON.stringify(users));
-      storage.setItem('diabetesAppCurrentUser', JSON.stringify(currentUser));
-    }
+    saveCurrentUser();
     
     taskInput.value = '';
     loadTasks();
@@ -240,13 +251,7 @@ function toggleTask(index) {
   if (currentUser && currentUser.tasks) {
     currentUser.tasks[index].completed = !currentUser.tasks[index].completed;
     
-    // Update user in localStorage
-    const userIndex = users.findIndex(u => u.id === currentUser.id);
-    if (userIndex !== -1) {
-      users[userIndex] = currentUser;
-      storage.setItem('diabetesAppUsers', JSON.stringify(users));
-      storage.setItem('diabetesAppCurrentUser', JSON.stringify(currentUser));
-    }
+    saveCurrentUser();
     
     loadTasks();
   }
@@ -256,13 +261,7 @@ function deleteTask(index) {
   if (currentUser && currentUser.tasks) {
     currentUser.tasks.splice(index, 1);
     
-    // Update user in localStorage
-    const userIndex = users.findIndex(u => u.id === currentUser.id);
-    if (userIndex !== -1) {
-      users[userIndex] = currentUser;
-      storage.setItem('diabetesAppUsers', JSON.stringify(users));
-      storage.setItem('diabetesAppCurrentUser', JSON.stringify(currentUser));
-    }
+    saveCurrentUser();
     
     loadTasks();
     showNotification('টাস্ক মুছে ফেলা হয়েছে!', 'success');
@@ -350,8 +349,7 @@ function initApp() {
   console.log('Cordova available:', typeof cordova !== 'undefined');
   console.log('Platform:', typeof cordova !== 'undefined' ? cordova.platformId : 'browser');
   
-  // Setup form handlers
-  setupFormHandlers();
+  // Authentication is temporarily disabled with its login and registration pages.
   
   // Setup diabetes form handler
   const diabetesForm = document.getElementById('diabetesForm');
@@ -617,21 +615,11 @@ function initApp() {
     });
   }
   
-  // Check if user is logged in
-  console.log('Checking user authentication. Current user:', currentUser);
-  if (currentUser) {
-    console.log('User is logged in, showing dashboard for:', currentUser.name);
-    const userNameElement = document.getElementById('userName');
-    if (userNameElement) {
-      userNameElement.textContent = currentUser.name;
-    } else {
-      console.error('userName element not found');
-    }
-    showPage('dashboardPage');
-  } else {
-    console.log('No user logged in, showing login page');
-    showPage('loginPage');
+  const userNameElement = document.getElementById('userName');
+  if (userNameElement) {
+    userNameElement.textContent = currentUser.name;
   }
+  showPage('dashboardPage');
   
   // Load settings
   const settings = JSON.parse(storage.getItem('diabetesAppSettings'));
