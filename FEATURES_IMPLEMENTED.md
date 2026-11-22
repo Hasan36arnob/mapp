@@ -1,4 +1,4 @@
-# Diabetes Identification System - Mobile App Features Implemented
+# DiaCare - Mobile App Features Implemented
 
 ## Overview
 This mobile application is a comprehensive diabetes risk assessment and management system specifically designed for Bangladeshi patients. The app now includes all 17 features as requested.

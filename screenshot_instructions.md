@@ -1,4 +1,4 @@
-# Screenshot Instructions for Diabetes Identification System Mobile App
+# Screenshot Instructions for DiaCare Mobile App
 
 Since this is a mobile app running in a browser preview, please follow these steps to capture screenshots:
 

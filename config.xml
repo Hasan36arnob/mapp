@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.example.mastersofflineapp" version="1.0.0"
+<widget id="com.diacare.app" version="1.0.0"
     xmlns="http://www.w3.org/ns/widgets"
     xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Diabetes Identification System</name>
-    <description>A Machine Learning-Based System for Early Diabetes Identification for Bangladeshi Patients using External Symptoms</description>
-    <author email="your@email.com" href="#">Your Name</author>
+    <name>DiaCare</name>
+    <description>DiaCare - a diabetes risk assessment and health guidance app for Bangladeshi patients</description>
+    <author email="support@diacare.app" href="#">DiaCare Team</author>
     <content src="index.html" />
     <access origin="*" />
     <platform name="android" />
