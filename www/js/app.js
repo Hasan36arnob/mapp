@@ -373,9 +373,6 @@ function initApp() {
       const alopecia = parseInt(document.getElementById('alopecia').value);
       const obesity = parseInt(document.getElementById('obesity').value);
 
-      const fatigue = 0;
-      const weight_loss = sudden_weight_loss;
-
       const binarySymptoms = [
         polyuria,
         polydipsia,
@@ -402,53 +399,6 @@ function initApp() {
       const totalSymptoms = binarySymptoms.length;
       const p = totalSymptoms > 0 ? presentCount / totalSymptoms : 0;
       const currentRiskStage = riskStage(p);
-
-      const symptomPresence = {
-        polyuria: polyuria,
-        polydipsia: polydipsia,
-        fatigue: fatigue,
-        weight_loss: weight_loss,
-        weakness: weakness,
-        polyphagia: polyphagia,
-        delayed_healing: delayed_healing,
-        partial_paresis: partial_paresis,
-        muscle_stiffness: muscle_stiffness
-      };
-
-      const early = ['polyuria', 'polydipsia', 'fatigue'];
-      const mid = ['weight_loss', 'weakness', 'polyphagia'];
-      const late = ['delayed_healing', 'partial_paresis', 'muscle_stiffness'];
-
-      let earlyCount = 0;
-      let midCount = 0;
-      let lateCount = 0;
-
-      for (let i = 0; i < early.length; i++) {
-        if (symptomPresence[early[i]] === 1) {
-          earlyCount++;
-        }
-      }
-
-      for (let i = 0; i < mid.length; i++) {
-        if (symptomPresence[mid[i]] === 1) {
-          midCount++;
-        }
-      }
-
-      for (let i = 0; i < late.length; i++) {
-        if (symptomPresence[late[i]] === 1) {
-          lateCount++;
-        }
-      }
-
-      let progressionDescription;
-      if (lateCount > 0) {
-        progressionDescription = 'Accelerated progression';
-      } else if (midCount >= 2) {
-        progressionDescription = 'Moderate progression';
-      } else {
-        progressionDescription = 'Early-stage progression';
-      }
 
       const symptomNamesForRisk = [
         'polyuria',
@@ -482,73 +432,6 @@ function initApp() {
         obesity: obesity
       };
 
-      const totalPresentForRisk = presentCount;
-      let counterfactualRemovalSymptom = null;
-      let counterfactualNewStage = null;
-
-      for (let i = 0; i < symptomNamesForRisk.length; i++) {
-        const name = symptomNamesForRisk[i];
-        if (symptomValuesForRisk[name] === 1) {
-          const newPresent = totalPresentForRisk - 1;
-          const newP = totalSymptoms > 0 ? newPresent / totalSymptoms : 0;
-          const newStage = riskStage(newP);
-          if (newStage !== currentRiskStage) {
-            counterfactualRemovalSymptom = name;
-            counterfactualNewStage = newStage;
-            break;
-          }
-        }
-      }
-
-      let action = '';
-      if (currentRiskStage === 'Moderate Risk') {
-        action = 'Lifestyle monitoring';
-      } else if (currentRiskStage === 'High Risk') {
-        action = 'Doctor consultation';
-      } else if (currentRiskStage === 'Critical Risk') {
-        action = 'Immediate lab tests';
-      }
-
-      const symptomAdviceMap = {
-        polyuria: 'পর্যাপ্ত পানি পান করুন এবং প্রয়োজনে রক্তে গ্লুকোজ পরীক্ষা করুন',
-        weight_loss: 'ডায়েটিশিয়ানের সাথে পরামর্শ করে পুষ্টি মূল্যায়ন করুন',
-        fatigue: 'ধীরে ধীরে নিয়মিত শারীরিক ব্যায়াম শুরু করুন এবং পর্যাপ্ত বিশ্রাম নিন'
-      };
-
-      const adviceItems = [];
-      if (polyuria === 1 && symptomAdviceMap.polyuria) {
-        adviceItems.push('<li>' + symptomAdviceMap.polyuria + '</li>');
-      }
-      if (weight_loss === 1 && symptomAdviceMap.weight_loss) {
-        adviceItems.push('<li>' + symptomAdviceMap.weight_loss + '</li>');
-      }
-      if (fatigue === 1 && symptomAdviceMap.fatigue) {
-        adviceItems.push('<li>' + symptomAdviceMap.fatigue + '</li>');
-      }
-
-      let counterfactualHtml = '';
-      if (counterfactualRemovalSymptom !== null && counterfactualNewStage !== null) {
-        counterfactualHtml =
-          '<h3>ঝুঁকি হ্রাসের সম্ভাবনা</h3>' +
-          '<table border="1" cellpadding="4" cellspacing="0">' +
-          '<thead><tr>' +
-          '<th>উপসর্গ</th>' +
-          '<th>বর্তমান ঝুঁকি</th>' +
-          '<th>নতুন ঝুঁকি</th>' +
-          '</tr></thead>' +
-          '<tbody><tr>' +
-          '<td>' + counterfactualRemovalSymptom + '</td>' +
-          '<td>' + currentRiskStage + '</td>' +
-          '<td>' + counterfactualNewStage + '</td>' +
-          '</tr></tbody>' +
-          '</table>';
-      }
-
-      let adviceHtml = '';
-      if (adviceItems.length > 0) {
-        adviceHtml = '<ul>' + adviceItems.join('') + '</ul>';
-      }
-
       const riskStageBangla = {
         'Very Low Risk': 'খুব কম ঝুঁকি',
         'Low Risk': 'কম ঝুঁকি',
@@ -557,16 +440,37 @@ function initApp() {
         'Critical Risk': 'জরুরি/অত্যন্ত উচ্চ ঝুঁকি'
       };
 
-      const progressionBangla = {
-        'Accelerated progression': 'দ্রুতগতি সম্পন্ন অগ্রগতি (লেট‑স্টেজ উপসর্গ উপস্থিত)',
-        'Moderate progression': 'মাঝারি অগ্রগতি (মিড‑স্টেজ উপসর্গ বেশি)',
-        'Early-stage progression': 'প্রারম্ভিক অবস্থা (প্রধানত আর্লি‑স্টেজ উপসর্গ)'
+      const symptomLabels = {
+        polyuria: 'বারবার প্রস্রাব',
+        polydipsia: 'অতিরিক্ত তৃষ্ণা',
+        itching: 'চুলকানি',
+        sudden_weight_loss: 'হঠাৎ ওজন কমা',
+        irritability: 'খিটখিটে মেজাজ',
+        partial_paresis: 'হাত-পা অবশ বা দুর্বল হওয়া',
+        visual_blurring: 'দৃষ্টি ঝাপসা হওয়া',
+        delayed_healing: 'ক্ষত শুকাতে দেরি হওয়া',
+        obesity: 'স্থূলতা',
+        polyphagia: 'অতিরিক্ত ক্ষুধা',
+        muscle_stiffness: 'মাংসপেশি শক্ত হয়ে যাওয়া',
+        alopecia: 'চুল পড়া',
+        weakness: 'দুর্বলতা'
       };
 
-      const actionBangla = {
-        'Lifestyle monitoring': 'জীবনযাত্রা নিয়মিত পর্যবেক্ষণ, ওজন ও খাদ্য নিয়ন্ত্রণ, বছরে অন্তত একবার রক্তে গ্লুকোজ পরীক্ষা',
-        'Doctor consultation': 'শীঘ্রই চিকিৎসকের সাথে দেখা করুন এবং প্রয়োজনে পরীক্ষা‑নিরীক্ষা করান',
-        'Immediate lab tests': 'অতি দ্রুত ল্যাব টেস্ট (ফাস্টিং গ্লুকোজ, HbA1c) করান এবং এন্ডোক্রিনোলজিস্টের পরামর্শ নিন'
+      const nextSteps = {
+        'Very Low Risk': ['লক্ষণ থাকলে, বাড়লে বা উদ্বেগ হলে চিকিৎসকের সঙ্গে কথা বলুন।'],
+        'Low Risk': ['লক্ষণ থাকলে, বাড়লে বা উদ্বেগ হলে চিকিৎসকের সঙ্গে কথা বলুন।'],
+        'Moderate Risk': [
+          'চিকিৎসকের পরামর্শে রক্তে গ্লুকোজ বা HbA1c পরীক্ষা করান।',
+          'স্বাস্থ্যকর খাবার বেছে নিন এবং নিয়মিত হাঁটুন।'
+        ],
+        'High Risk': [
+          'শীঘ্রই চিকিৎসকের সঙ্গে দেখা করুন।',
+          'চিকিৎসকের পরামর্শে রক্তে গ্লুকোজ বা HbA1c পরীক্ষা করান।'
+        ],
+        'Critical Risk': [
+          'দ্রুত চিকিৎসকের সঙ্গে যোগাযোগ করে রক্তে গ্লুকোজ বা HbA1c পরীক্ষা করান।',
+          'অসুস্থতা দ্রুত বাড়লে জরুরি চিকিৎসা নিন।'
+        ]
       };
 
       const riskClass = {
@@ -577,28 +481,35 @@ function initApp() {
         'Critical Risk': 'risk-critical'
       };
 
+      const contributingSymptoms = symptomNamesForRisk
+        .filter(name => symptomValuesForRisk[name] === 1)
+        .map(name => symptomLabels[name]);
+      const shownSymptoms = contributingSymptoms.slice(0, 3);
+      const otherSymptomCount = contributingSymptoms.length - shownSymptoms.length;
+      const contributingHtml = contributingSymptoms.length
+        ? `<ul class="result-feature-list">
+            ${shownSymptoms.map(symptom => `<li>${symptom}</li>`).join('')}
+            ${otherSymptomCount > 0 ? `<li>আরও ${otherSymptomCount}টি</li>` : ''}
+          </ul>`
+        : '<p>আপনার উত্তরে ঝুঁকি গণনায় যুক্ত কোনো উপসর্গ পাওয়া যায়নি।</p>';
+      const nextStepsHtml = nextSteps[currentRiskStage]
+        .map(step => `<li>${step}</li>`)
+        .join('');
+
       const resultHtml = `
-        <h2>আপনার ডায়াবেটিস ঝুঁকি ফলাফল</h2>
-        <p><strong>ঝুঁকি স্তর:</strong> <span class="risk-indicator ${riskClass[currentRiskStage]}">${riskStageBangla[currentRiskStage]}</span></p>
-        <p><strong>অগ্রগতির ধরন:</strong> ${progressionBangla[progressionDescription]}</p>
-        <p><strong>লক্ষণ সংখ্যা:</strong> ${presentCount} / ${totalSymptoms}</p>
-        <p><strong>ঝুঁকি শতাংশ:</strong> ${(p * 100).toFixed(1)}%</p>
-        
-        ${action ? `<h3>সুপারিশ</h3><p>${actionBangla[action]}</p>` : ''}
-        
-        ${adviceHtml ? `<h3>উপসর্গ-ভিত্তিক পরামর্শ</h3>${adviceHtml}` : ''}
-        
-        ${counterfactualHtml}
-        
-        <h3>সাধারণ স্বাস্থ্য পরামর্শ</h3>
-        <ul>
-          <li>নিয়মিত শারীরিক ব্যায়াম করুন</li>
-          <li>স্বাস্থ্যকর খাদ্যাভ্যাস বজায় রাখুন</li>
-          <li>পর্যাপ্ত পানি পান করুন</li>
-          <li>পর্যাপ্ত ঘুমান</li>
-          <li>মানসিক চাপ কমান</li>
-        </ul>
-        
+        <div class="result-risk">
+          <h2>আপনার ঝুঁকি</h2>
+          <span class="risk-indicator ${riskClass[currentRiskStage]}">${riskStageBangla[currentRiskStage]}</span>
+        </div>
+        <section class="result-section">
+          <h3>ঝুঁকিতে অবদান রাখা তথ্য</h3>
+          ${contributingHtml}
+        </section>
+        <section class="result-section">
+          <h3>আপনার করণীয়</h3>
+          <ul>${nextStepsHtml}</ul>
+        </section>
+        <p class="result-disclaimer">এটি উপসর্গভিত্তিক প্রাথমিক মূল্যায়ন, রোগ নির্ণয় নয়।</p>
         <button onclick="resetForm()" class="submit-btn" style="margin-top: 20px;">
           <span class="btn-text">নতুন পরীক্ষা করুন</span>
         </button>

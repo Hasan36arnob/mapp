@@ -231,6 +231,39 @@ html, body {
   border-bottom: 2px solid #f0f0f0;
 }
 
+.result-risk {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.result-risk h2 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.result-section {
+  margin-top: 20px;
+}
+
+.result-card .result-section h3 {
+  margin-top: 0;
+}
+
+.result-feature-list {
+  margin-bottom: 0;
+}
+
+.result-disclaimer {
+  margin: 20px 0 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
 .result-card h3 {
   color: #667eea;
   font-size: 1.2rem;
@@ -293,7 +326,6 @@ html, body {
   border-radius: 20px;
   font-weight: 600;
   font-size: 0.9rem;
-  margin-left: 10px;
 }
 
 .risk-very-low {
@@ -396,6 +428,11 @@ html, body {
 @media (max-width: 480px) {
   .app-header h1 {
     font-size: 1.4rem;
+  }
+
+  .result-risk {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .header-icon {
