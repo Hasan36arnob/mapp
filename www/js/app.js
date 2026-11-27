@@ -93,8 +93,6 @@ let currentUser = JSON.parse(storage.getItem('diabetesAppCurrentUser')) || {
   tasks: []
 };
 
-// Authentication form handlers are temporarily disabled with their pages.
-/*
 function setupFormHandlers() {
   // Login Form Handler
   const loginForm = document.getElementById('loginForm');
@@ -168,7 +166,6 @@ function logout() {
   showPage('loginPage');
   showNotification('লগআউট হয়েছে!', 'success');
 }
-*/
 
 function saveCurrentUser() {
   const userIndex = users.findIndex(user => user.id === currentUser.id);
@@ -349,7 +346,7 @@ function initApp() {
   console.log('Cordova available:', typeof cordova !== 'undefined');
   console.log('Platform:', typeof cordova !== 'undefined' ? cordova.platformId : 'browser');
   
-  // Authentication is temporarily disabled with its login and registration pages.
+  setupFormHandlers();
   
   // Setup diabetes form handler
   const diabetesForm = document.getElementById('diabetesForm');
@@ -530,7 +527,11 @@ function initApp() {
   if (userNameElement) {
     userNameElement.textContent = currentUser.name;
   }
-  showPage('dashboardPage');
+  if (currentUser && currentUser.id !== 'guest') {
+    showPage('dashboardPage');
+  } else {
+    showPage('loginPage');
+  }
   
   // Load settings
   const settings = JSON.parse(storage.getItem('diabetesAppSettings'));
